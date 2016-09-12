@@ -1,3 +1,5 @@
+/*! from Colorcards by Jeff-Russ http://github.com/Jeff-Russ/ */
+
 ///////////////////////////////////////////////////////////////////////////////
 /* ready() is similar to jQuery.ready() and here it's without comments and 
 had a lot of whitespace removed. for more info it's from Timo Huovinen's reply:

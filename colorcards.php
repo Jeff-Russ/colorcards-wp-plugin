@@ -14,15 +14,14 @@
 add_action( 'wp_footer', 'add_local_js_to_footer', 100 );
 function add_local_js_to_footer() {
 	$path = strstr(__DIR__, '/wp-content');
-	return "<script src='${path}/script.js'></script>";
+	return "<script src='${path}/colorcards.min.js'></script>";
 }
 
 add_action( 'wp_head','add_local_css_to_head' );
 function add_local_css_to_head() {
 	$path = strstr(__DIR__, '/wp-content');
-	return "</p><link rel='stylesheet' type='text/css' href='${path}/style.css'></p>";
+	return "</p><link rel='stylesheet' type='text/css' href='${path}/colorcards.min.css'></p>";
 }
-
 
 add_shortcode('save-state', 'save_state_cb');
 function save_state_cb() {
