@@ -14,13 +14,13 @@
 add_action( 'wp_footer', 'add_local_js_to_footer', 100 );
 function add_local_js_to_footer() {
 	$path = strstr(__DIR__, '/wp-content');
-	return "<script src='${path}/colorcards.min.js'></script>";
+	echo "<script src='${path}/colorcards.min.js'></script>";
 }
 
 add_action( 'wp_head','add_local_css_to_head' );
 function add_local_css_to_head() {
 	$path = strstr(__DIR__, '/wp-content');
-	return "</p><link rel='stylesheet' type='text/css' href='${path}/colorcards.min.css'></p>";
+	echo "</p><link rel='stylesheet' type='text/css' href='${path}/colorcards.min.css'></p>";
 }
 
 // RE-USABLE FUNCTIONS //////
@@ -69,13 +69,13 @@ function collapsible_cb($atts, $content) {
 	if ( $atts['show'] === 'false' ) $checked = '';
 	else $checked = 'checked';
 
-	$template = "	<div class='collapsible' id='$section_hash>
+	$template = "	<div class='collapsible' id='$section_hash'>
 		<input type='checkbox' id='ccc-checkbox-$section_hash' $checked/>
-		<label class='$class $color clickable' for='ccc-checkbox-$section_hash'>$title</label>
+		<label class='{$atts['class']} {$atts['color']} clickable' for='ccc-checkbox-$section_hash'>{$atts['title']}</label>
 		<section>
 			$content
 		</section>
 	</div>";
 	return $template;
-});
+}
 
