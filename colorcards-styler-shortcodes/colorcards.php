@@ -26,9 +26,9 @@ function add_local_css_to_head() {
 // RE-USABLE FUNCTIONS //////
 
 function replace_dashes($string) {
-    $string = str_replace("-", " ", $string);
-    
-    return $string;
+		$string = str_replace("-", " ", $string);
+		
+		return $string;
 }
 // shout out: http://cubiq.org/the-perfect-php-clean-url-generator
 setlocale(LC_ALL, 'en_US.UTF8');
@@ -46,11 +46,24 @@ function toAscii($str, $replace=array(), $delimiter='-') {
 
 // SHORTCODES //////
 
-add_shortcode('save-state', 'save_state_cb');
-function save_state_cb() {
-	$jquery = 'https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js';
-	return "<script src='" . $jquery . "'></script>";
+// Add jQuery
+if ( !function_exists('enqueue_jquery_cdn') ){
+	add_action('wp_enqueue_scripts', 'enqueue_jquery_cdn');
+	function enqueue_jquery_cdn()
+	{ // https://css-tricks.com/snippets/wordpress/include-jquery-in-wordpress-theme/
+		if (!is_admin()) add_action("wp_enqueue_scripts", "my_jquery_enqueue", 11);
+		function my_jquery_enqueue(){
+			wp_deregister_script('jquery');
+			wp_register_script('jquery',
+				"http" . ($_SERVER['SERVER_PORT'] == 443 ? "s" : "")
+				. "://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js",
+				false, null); // we may want to add a version number like: , array('jquery'), '1.10.2', true );
+			wp_enqueue_script('jquery');
+		}
+	}
 }
+
+
 
 add_shortcode('collapsible', 'collapsible_cb');
 function collapsible_cb($atts, $content) {
